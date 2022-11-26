@@ -1,0 +1,55 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  interval: 5m
+  chart:
+    spec:
+      version: "41.x"
+      chart: kube-prometheus-stack
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+      verify:
+        provider: cosign
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values:
+    grafana:
+      sidecar:
+          datasources:
+              defaultDatasourceEnabled: true
+    coreDns:
+      service:
+          selector:
+              k8s-app: kube-dns 
+    kubeControllerManager:
+        service:
+            selector:
+                component: kube-controller-manager
+    kubeEtcd:
+        service:
+            selector:
+                component: etcd
+    kubeScheduler:
+        service:
+            selector:
+                component: kube-scheduler
+    prometheus:
+      prometheusSpec:
+          serviceMonitorSelectorNilUsesHelmValues: false
+          podMonitorSelectorNilUsesHelmValues: false
+          #serviceMonitorSelector: {}
+          #serviceMonitorNamespaceSelector: {}
+      storageSpec:
+          volumeClaimTemplate:
+              spec:
+                  accessModes:
+                      - ReadWriteOnce
+                  resources:
+                      requests:
+                          storage: 50Gi
