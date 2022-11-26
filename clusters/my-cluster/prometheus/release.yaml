@@ -39,6 +39,9 @@ spec:
         service:
             selector:
                 component: kube-scheduler
+    prometheusOperator:
+      networkPolicy:
+        enable: true
     prometheus:
       prometheusSpec:
           serviceMonitorSelectorNilUsesHelmValues: false
