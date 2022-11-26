@@ -21,6 +21,8 @@ spec:
   values:
     grafana:
       sidecar:
+          dashboards:
+            multicluster: false
           datasources:
               defaultDatasourceEnabled: true
     coreDns:
