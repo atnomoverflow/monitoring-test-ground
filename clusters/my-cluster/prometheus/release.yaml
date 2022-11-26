@@ -48,6 +48,12 @@ spec:
           podMonitorSelectorNilUsesHelmValues: false
           #serviceMonitorSelector: {}
           #serviceMonitorNamespaceSelector: {}
+    kube-state-metrics:
+      prometheus:
+        monitor:
+          enabled: true
+          additionalLabels:
+            release: kube-prometheus-stack
       storageSpec:
           volumeClaimTemplate:
               spec:
