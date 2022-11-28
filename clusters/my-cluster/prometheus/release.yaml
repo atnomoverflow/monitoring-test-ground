@@ -20,7 +20,7 @@ spec:
     remediation:
       retries: 5
   values:
-    # alertmanager:
+    alertmanager:
     #   config:
     #     global:
     #       resolve_timeout: 5m
