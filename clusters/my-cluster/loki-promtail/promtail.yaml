@@ -7,11 +7,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: grafana
-      version: 6.7.x
+      version: ">= 3.0.0"
+      chart: promtail 
       sourceRef:
         kind: HelmRepository
-        name: promtail
+        name: grafana
   install:
     createNamespace: true
     remediation:

@@ -7,11 +7,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: grafana
+      chart: loki-distributed
       version: 0.67.x
       sourceRef:
         kind: HelmRepository
-        name: loki-distributed
+        name: grafana
   install:
     createNamespace: true
     remediation:
