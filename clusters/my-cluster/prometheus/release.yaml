@@ -102,6 +102,10 @@ spec:
       sidecar:
         datasources:
           defaultDatasourceEnabled: true
+        additionalDataSources:
+          - name: Loki
+            type: loki
+            url: http://loki-distributed-querier.monitoring.svc:3100
         dashboards:
           multicluster:
             etcd:

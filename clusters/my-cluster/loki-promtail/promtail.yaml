@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: grafana
+      version: 6.7.x
+      sourceRef:
+        kind: HelmRepository
+        name: promtail
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    serviceMonitor:
+      enabled: true
+      # targetLabels:
+      #   app.kubernetes.io/part-of: kube-prometheus-stack
+    config:
+      clients:
+        - url: http://loki-distributed-gateway.monitoring.svc/loki/api/v1/push
